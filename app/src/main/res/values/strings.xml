@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Uni-Vishwas</string>
+    <string name="offline_emoji">📡</string>
+    <string name="offline_title">You\'re offline</string>
+    <string name="offline_message">Check your internet connection and try again.</string>
+    <string name="retry">Retry</string>
+    <string name="still_offline">Still no connection.</string>
+    <string name="downloading">Downloading…</string>
+    <string name="downloading_named">Downloading %1$s</string>
+    <string name="choose_file">Choose a file</string>
+    <string name="no_file_picker">No app available to pick a file.</string>
+    <string name="no_app_to_handle">No app installed to handle this link.</string>
+    <string name="retry_upload">Permissions updated. Tap upload again.</string>
+</resources>

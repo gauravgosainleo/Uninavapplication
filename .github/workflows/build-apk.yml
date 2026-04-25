@@ -1,0 +1,132 @@
+name: Build APK
+
+on:
+  # Build on every push and PR to main, plus manually from the Actions tab.
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build APK
+    runs-on: ubuntu-latest
+
+    steps:
+      # ---------------------------------------------------------------
+      # 1. Check out the repo
+      # ---------------------------------------------------------------
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # ---------------------------------------------------------------
+      # 2. Set up Java 17 — required by Android Gradle Plugin 8.x
+      # ---------------------------------------------------------------
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      # ---------------------------------------------------------------
+      # 3. Install Gradle. This action also configures the Gradle build
+      #    cache so subsequent runs are much faster.
+      # ---------------------------------------------------------------
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: "8.5"
+
+      # ---------------------------------------------------------------
+      # 4. Regenerate the gradle-wrapper.jar (the binary jar isn't
+      #    committed to the repo). After this step `./gradlew` works.
+      # ---------------------------------------------------------------
+      - name: Generate Gradle wrapper
+        run: gradle wrapper --gradle-version 8.5
+
+      # ---------------------------------------------------------------
+      # 5. Set up the Android SDK (cmdline-tools + the components AGP
+      #    needs). Versions match what app/build.gradle declares.
+      # ---------------------------------------------------------------
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          packages: "platform-tools platforms;android-34 build-tools;34.0.0"
+
+      # ---------------------------------------------------------------
+      # 6. Build the DEBUG APK. Debug APKs are signed with the SDK's
+      #    auto-generated debug keystore, so they install without any
+      #    extra signing setup. This is the "default" build artifact.
+      # ---------------------------------------------------------------
+      - name: Build debug APK
+        run: ./gradlew assembleDebug --stacktrace
+
+      - name: Rename debug APK
+        run: |
+          mkdir -p out
+          cp app/build/outputs/apk/debug/app-debug.apk \
+             out/Uni-Vishwas-debug.apk
+
+      - name: Upload debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Uni-Vishwas-debug-apk
+          path: out/Uni-Vishwas-debug.apk
+          if-no-files-found: error
+
+      # ---------------------------------------------------------------
+      # 7. (Optional) Build a SIGNED release APK if the four signing
+      #    secrets are configured on the repo. If they aren't, this
+      #    step is silently skipped and only the debug APK is shipped.
+      #
+      # To enable, create these repo secrets:
+      #   UNI_KEYSTORE_BASE64    – base64 of your .jks/.keystore file
+      #   UNI_KEYSTORE_PASSWORD  – store password
+      #   UNI_KEY_ALIAS          – key alias
+      #   UNI_KEY_PASSWORD       – key password
+      #
+      # Generate a keystore once with:
+      #   keytool -genkey -v -keystore release.jks -keyalg RSA \
+      #           -keysize 2048 -validity 10000 -alias univishwas
+      # Then base64 it: `base64 -w0 release.jks` (Linux) and paste
+      # the output as UNI_KEYSTORE_BASE64.
+      # ---------------------------------------------------------------
+      - name: Decode signing keystore (skipped if secret missing)
+        env:
+          UNI_KEYSTORE_BASE64: ${{ secrets.UNI_KEYSTORE_BASE64 }}
+        run: |
+          if [ -n "$UNI_KEYSTORE_BASE64" ]; then
+            echo "$UNI_KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/release.jks"
+            echo "KEYSTORE_PATH=$RUNNER_TEMP/release.jks" >> "$GITHUB_ENV"
+            echo "Signing secret found — release APK will be built."
+          else
+            echo "No UNI_KEYSTORE_BASE64 secret — skipping release build."
+          fi
+
+      - name: Build signed release APK
+        if: ${{ env.KEYSTORE_PATH != '' }}
+        env:
+          UNI_KEYSTORE_PASSWORD: ${{ secrets.UNI_KEYSTORE_PASSWORD }}
+          UNI_KEY_ALIAS: ${{ secrets.UNI_KEY_ALIAS }}
+          UNI_KEY_PASSWORD: ${{ secrets.UNI_KEY_PASSWORD }}
+        run: |
+          ./gradlew assembleRelease --stacktrace \
+            -Pandroid.injected.signing.store.file="$KEYSTORE_PATH" \
+            -Pandroid.injected.signing.store.password="$UNI_KEYSTORE_PASSWORD" \
+            -Pandroid.injected.signing.key.alias="$UNI_KEY_ALIAS" \
+            -Pandroid.injected.signing.key.password="$UNI_KEY_PASSWORD"
+
+      - name: Rename release APK
+        if: ${{ env.KEYSTORE_PATH != '' }}
+        run: |
+          cp app/build/outputs/apk/release/app-release.apk \
+             out/Uni-Vishwas-release.apk
+
+      - name: Upload release APK
+        if: ${{ env.KEYSTORE_PATH != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: Uni-Vishwas-release-apk
+          path: out/Uni-Vishwas-release.apk
+          if-no-files-found: error

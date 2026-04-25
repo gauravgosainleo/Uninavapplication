@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Stylised "U" rendered with two thick verticals and a rounded base.
+         All strokes sit inside the 66dp safe area (x: 21..87, y: 21..87). -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M33,30 L33,60 A21,21 0 0 0 75,60 L75,30 L65,30 L65,60 A11,11 0 0 1 43,60 L43,30 Z" />
+
+    <!-- Small accent dot above to evoke a building/dome silhouette -->
+    <path
+        android:fillColor="#FFF5A623"
+        android:pathData="M54,22 m-4,0 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0" />
+</vector>
