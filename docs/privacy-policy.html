@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Uni-Vishwas - Privacy Policy</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, sans-serif;
+      max-width: 760px;
+      margin: 2rem auto;
+      padding: 0 1.25rem 4rem;
+      line-height: 1.55;
+      color: #222;
+    }
+    @media (prefers-color-scheme: dark) {
+      body { color: #e6e6e6; background: #121212; }
+      a { color: #8ab4f8; }
+    }
+    h1 { font-size: 1.7rem; margin-bottom: 0.25rem; }
+    h2 { margin-top: 2rem; font-size: 1.2rem; }
+    .updated { color: #777; margin-top: 0; }
+    code { font-size: 0.95em; }
+    ul { padding-left: 1.25rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+    th, td {
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid rgba(128,128,128,0.3);
+      vertical-align: top;
+    }
+    th { font-weight: 600; }
+  </style>
+</head>
+<body>
+
+<h1>Uni-Vishwas - Privacy Policy</h1>
+<p class="updated">Last updated: 29 April 2026</p>
+
+<p>
+  This Privacy Policy describes how the <strong>Uni-Vishwas</strong> Android
+  app (package name <code>com.univishwas.app</code>, "the app") handles
+  information when you use it. The app is the official mobile client for the
+  Uni-Vishwas residential-society portal hosted at
+  <a href="http://learninganddevelopment.net/Uninav/Application/">
+    learninganddevelopment.net/Uninav/Application/</a>.
+</p>
+
+<h2>1. Who runs the app</h2>
+<p>
+  The app is published and operated by the Uni-Vishwas society management
+  ("we", "us"). For any privacy question or data-deletion request,
+  contact us at
+  <a href="mailto:privacy@uni-vishwas.example">privacy@uni-vishwas.example</a>.
+  <em>(Replace this address with your actual contact email before
+  publishing the policy URL to the Play Console.)</em>
+</p>
+
+<h2>2. What the app does</h2>
+<p>
+  The app is a thin WebView wrapper around the Uni-Vishwas web portal. All
+  account creation, login, notices, complaints, polls and classifieds happen
+  on the web portal; the app simply renders those pages and adds native
+  conveniences such as camera-based image uploads, file downloads,
+  pull-to-refresh and persistent login.
+</p>
+
+<h2>3. Information we collect</h2>
+<table>
+  <tr>
+    <th>Category</th>
+    <th>What it is</th>
+    <th>Where it is processed</th>
+  </tr>
+  <tr>
+    <td>Account credentials</td>
+    <td>
+      Your username and password, entered into the login form on the web
+      portal inside the WebView.
+    </td>
+    <td>
+      Sent directly to the Uni-Vishwas web server. The app code never
+      reads, stores or transmits your password itself.
+    </td>
+  </tr>
+  <tr>
+    <td>Session cookie</td>
+    <td>
+      A standard PHP session cookie (<code>UNINAVSESS</code>) issued by
+      the server after you log in, so you do not have to log in every
+      time you open the app.
+    </td>
+    <td>
+      Stored on your device by the system WebView's
+      <code>CookieManager</code>. Cleared when you log out or clear the
+      app's storage.
+    </td>
+  </tr>
+  <tr>
+    <td>Photos you choose to upload</td>
+    <td>
+      Profile pictures, complaint images, notice images and classified-ad
+      images that you explicitly attach inside the app.
+    </td>
+    <td>
+      Uploaded directly to the Uni-Vishwas server over the network. The
+      photos are not sent anywhere else.
+    </td>
+  </tr>
+  <tr>
+    <td>Downloaded files</td>
+    <td>
+      Poll-result PDFs and similar documents that you tap to download.
+    </td>
+    <td>
+      Saved to your device's standard Downloads folder by Android's
+      built-in <code>DownloadManager</code>.
+    </td>
+  </tr>
+  <tr>
+    <td>Network state</td>
+    <td>
+      Whether the device currently has Internet connectivity, used only
+      to show the offline retry screen.
+    </td>
+    <td>
+      Read in-memory by the app; never stored or transmitted.
+    </td>
+  </tr>
+</table>
+
+<p>
+  The app does <strong>not</strong> collect or transmit your precise or
+  approximate location, contacts, calendar, microphone audio, SMS messages,
+  call logs, advertising ID, device identifiers, or any analytics or
+  crash-reporting data. The app contains no third-party advertising or
+  tracking SDKs.
+</p>
+
+<h2>4. Why the app requests each permission</h2>
+<table>
+  <tr><th>Permission</th><th>Why</th></tr>
+  <tr>
+    <td><code>INTERNET</code></td>
+    <td>To load the Uni-Vishwas web portal inside the WebView.</td>
+  </tr>
+  <tr>
+    <td><code>ACCESS_NETWORK_STATE</code></td>
+    <td>To detect when the device is offline and show a retry screen.</td>
+  </tr>
+  <tr>
+    <td><code>CAMERA</code></td>
+    <td>
+      Lets you capture a photo with the camera <em>only</em> when you
+      tap an upload control inside the app (for example, "change profile
+      photo" or "attach image to complaint"). The camera is never
+      activated automatically or in the background.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <code>READ_MEDIA_IMAGES</code> (Android 13+) /
+      <code>READ_EXTERNAL_STORAGE</code> (Android 12 and below)
+    </td>
+    <td>
+      Lets you pick an existing photo from your gallery when you tap an
+      upload control. The app only opens the picker; it does not scan
+      your photo library otherwise.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <code>WRITE_EXTERNAL_STORAGE</code> (Android 9 and below only)
+    </td>
+    <td>
+      Lets the system save downloaded poll PDFs to the public
+      Downloads folder on older Android versions where this permission
+      is still required. Modern Android versions handle downloads via
+      scoped storage and do not need this permission.
+    </td>
+  </tr>
+</table>
+
+<h2>5. How we share information</h2>
+<p>
+  Information you submit through the app (uploads, complaints, polls, etc.)
+  is sent to the Uni-Vishwas web server so it can be processed by the
+  society's portal. We do not sell your personal data, and we do not share
+  it with advertisers or unrelated third parties. We may disclose
+  information when legally required to do so by a court order or law
+  enforcement request.
+</p>
+
+<h2>6. Data retention and deletion</h2>
+<p>
+  Data you create on the web portal (profile, complaints, ad listings,
+  poll responses) is retained for as long as your society membership is
+  active, in line with the portal's data-retention practices. To request
+  deletion of your account or specific content, email
+  <a href="mailto:privacy@uni-vishwas.example">privacy@uni-vishwas.example</a>
+  from the address registered with your account, or use the
+  account-deletion option inside the portal where available.
+</p>
+<p>
+  Locally on your device you can clear the app's stored data at any time
+  via <em>Android Settings -> Apps -> Uni-Vishwas -> Storage -> Clear
+  storage</em>, which removes the saved session cookie and the WebView
+  cache. Uninstalling the app also removes all locally stored data.
+</p>
+
+<h2>7. Children</h2>
+<p>
+  The app is intended for residents of the Uni-Vishwas society and is not
+  directed at children under 13. We do not knowingly collect data from
+  children. If a parent or guardian becomes aware that a child has
+  provided personal data, please contact us so we can delete it.
+</p>
+
+<h2>8. Security</h2>
+<p>
+  The session cookie is stored using Android's standard WebView cookie
+  store, which is sandboxed to this app. The app disables WebView file
+  access (<code>setAllowFileAccess(false)</code>) so web content cannot
+  read arbitrary files on your device. Cleartext HTTP is permitted only
+  for the Uni-Vishwas portal domain; all other domains must use HTTPS.
+  We are migrating the portal to HTTPS and will remove the cleartext
+  exemption in a future version.
+</p>
+
+<h2>9. Changes to this policy</h2>
+<p>
+  If we make material changes to how the app handles personal data, we
+  will update this page and bump the "Last updated" date at the top.
+  Continued use of the app after the change constitutes acceptance of
+  the updated policy.
+</p>
+
+<h2>10. Contact</h2>
+<p>
+  Questions or requests:
+  <a href="mailto:privacy@uni-vishwas.example">privacy@uni-vishwas.example</a>.
+</p>
+
+</body>
+</html>
