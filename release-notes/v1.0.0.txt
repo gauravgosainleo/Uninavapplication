@@ -1,0 +1,84 @@
+Uni-Vishwas v1.0.0 (versionCode 1) — Initial Release
+=====================================================
+
+Release date: 29 April 2026
+Package:      com.univishwas.app
+Track:        Internal / Closed testing -> Production
+
+
+What's new (Play Console "Release notes", <=500 chars)
+------------------------------------------------------
+First release of Uni-Vishwas, the official Android app for our
+residential society. Log in once and stay signed in. Upload profile
+photos, complaint images, notice and ad images straight from your
+gallery or camera. Download poll PDFs in one tap. Pull-to-refresh,
+hardware-Back navigation, dark mode, and an offline screen with retry
+all built in.
+
+
+Highlights
+----------
+- Single sign-on persistence via secure session cookie.
+- File uploads with combined gallery + camera chooser.
+- Poll PDF downloads through Android's native DownloadManager.
+- Pull-to-refresh and hardware Back across all society modules
+  (notices, complaints, ads, polls, profile).
+- Material 3 light and dark themes that follow system settings.
+- Offline detection with a one-tap retry screen.
+- mailto:, tel: and sms: links open the right system app.
+
+
+Compatibility
+-------------
+- Minimum Android version: 5.0 Lollipop (API 21)
+- Target Android version:  14 (API 34)
+- Architectures:           universal (no native code)
+- Download size:           ~4 MB (AAB), ~5.5 MB installed
+
+
+Permissions requested
+---------------------
+- Internet & network state  - load the society portal
+- Camera                    - capture photos for uploads
+- Read media images         - pick existing photos for uploads
+  (Android 13+: READ_MEDIA_IMAGES; older: READ_EXTERNAL_STORAGE)
+
+
+Known limitations
+-----------------
+- Backend currently served over HTTP; cleartext traffic is allowed
+  only for learninganddevelopment.net. Migration to HTTPS is planned
+  for v1.1 and will remove the cleartext exemption entirely.
+- Pull-to-refresh only triggers when the WebView is scrolled to the
+  very top. Inside modules with their own scroll areas, scroll up
+  first, then pull down.
+
+
+For the reviewer
+----------------
+- Test login: please use the credentials shared out-of-band.
+- After login the app loads
+  http://learninganddevelopment.net/Uninav/Application/ inside a
+  WebView; all society features (notices, complaints, polls, ads,
+  profile) are reachable from the in-page navigation.
+- Uploads can be tested from Profile -> Edit photo, or from the
+  "Add complaint" / "Add ad" forms.
+
+
+Short copy for store listing fields
+-----------------------------------
+App title (30 chars max):
+  Uni-Vishwas
+
+Short description (80 chars max):
+  Residents' app for notices, complaints, polls and society updates.
+
+Full description (4000 chars max, suggested):
+  Uni-Vishwas is the official residents' app for our society. Stay on
+  top of notices, raise and track complaints, vote in polls, and
+  browse classified ads from your neighbours -- all from one place.
+  Log in once and stay signed in. Upload your profile photo, attach
+  pictures to complaints and ads straight from your gallery or
+  camera, and download poll result PDFs with a single tap. Built-in
+  dark mode follows your system settings, and an offline screen lets
+  you retry the moment your network is back.
