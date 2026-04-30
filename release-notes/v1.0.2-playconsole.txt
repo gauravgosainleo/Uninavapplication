@@ -1,0 +1,3 @@
+<en-US>
+Targets Android 15 (API 35) to meet the latest Play Store requirement. Same Uni-Vishwas experience: persistent login, image uploads from gallery or camera, poll PDF downloads, pull-to-refresh, hardware Back navigation, dark mode and an offline retry screen.
+</en-US>
