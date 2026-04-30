@@ -1,0 +1,3 @@
+<en-US>
+First release of Uni-Vishwas, the official Android app for our residential society. Log in once and stay signed in. Upload profile, complaint and ad photos from your gallery or camera. Download poll PDFs in one tap. Pull-to-refresh, hardware Back navigation, dark mode and an offline retry screen all built in.
+</en-US>
