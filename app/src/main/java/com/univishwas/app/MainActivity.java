@@ -36,9 +36,6 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.univishwas.app.auth.SessionManager;
-
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -95,16 +92,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        SessionManager session = new SessionManager(this);
-        if (!session.isLoggedIn()) {
-            Intent intent = new Intent(this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            finish();
-            return;
-        }
-
         setContentView(R.layout.activity_main);
 
         webView = findViewById(R.id.webview);
@@ -119,10 +106,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, R.string.still_offline, Toast.LENGTH_SHORT).show();
             }
         });
-
-        FloatingActionButton profileFab = findViewById(R.id.profileFab);
-        profileFab.setOnClickListener(v ->
-                startActivity(new Intent(this, ProfileActivity.class)));
 
         swipeRefresh.setOnRefreshListener(() -> webView.reload());
 

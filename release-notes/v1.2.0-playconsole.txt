@@ -1,0 +1,3 @@
+<en-US>
+The Uni-Vishwas app is now aligned with the new web portal: registration with email OTP, login, family setup, and house-number allocation all happen on the portal pages, so the app simply takes you straight there. Login persists, image uploads, poll PDF downloads, pull-to-refresh and dark mode continue to work as before.
+</en-US>
