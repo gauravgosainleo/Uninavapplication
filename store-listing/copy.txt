@@ -1,0 +1,58 @@
+Uni-Vishwas - Play Console Store Listing Copy
+==============================================
+
+Paste each block into the matching field under
+"Main store listing" in the Play Console.
+
+
+-----------------------------------------------------------
+App name (max 30 chars)
+-----------------------------------------------------------
+Uni-Vishwas
+
+
+-----------------------------------------------------------
+Short description (max 80 chars)
+-----------------------------------------------------------
+Residents' app for society notices, complaints, polls, ads and uploads.
+
+
+-----------------------------------------------------------
+Full description (max 4000 chars; use plain text, no HTML)
+-----------------------------------------------------------
+Uni-Vishwas is the official residents' app for your housing society.
+Stay on top of every notice, raise and track complaints, vote in polls,
+and browse classifieds posted by your neighbours - all from one place.
+
+Built for everyday society life:
+
+* Persistent login - sign in once and the app remembers you.
+* Notices and circulars, delivered the moment management posts them.
+* Complaints and maintenance requests with photo attachments from your
+  gallery or camera, and full status tracking.
+* Polls and surveys with one-tap PDF result downloads.
+* Classified ads from neighbours - rent, buy, sell, recommend.
+* Profile photo upload from camera or gallery.
+* Pull-to-refresh on every screen so you always see the latest.
+* Hardware Back navigation that follows the app's own history.
+* Material 3 light and dark themes that match your system setting.
+* Offline screen with a one-tap retry button when the network drops.
+
+Permissions, why we ask:
+
+* Camera - only when you tap an upload control to capture a photo for
+  your profile, a complaint, or a classified. The camera is never
+  activated automatically or in the background.
+* Photos & media - to let you pick existing pictures from your gallery
+  for the same upload features. We do not scan or upload your library.
+* Internet & network state - to load the society portal and to show an
+  offline retry screen when the connection drops.
+
+Privacy:
+We do not include any third-party advertising or analytics SDKs. The
+app stores only your standard web session cookie on the device, and
+content you submit (uploads, complaints, polls) goes directly to the
+society's web server. The full privacy policy is linked from the
+listing.
+
+Uni-Vishwas works on Android 5.0 (Lollipop) and newer.
