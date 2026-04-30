@@ -1,0 +1,3 @@
+<en-US>
+Smaller, faster, easier to debug. The app is now built with R8 code shrinking and resource shrinking, cutting the install size roughly in half. Crash reports in the Play Console are now de-obfuscated automatically thanks to the bundled mapping file.
+</en-US>
