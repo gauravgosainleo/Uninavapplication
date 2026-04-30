@@ -1,0 +1,25 @@
+# Block direct access to internal files.
+<FilesMatch "^(config\.php|config\.example\.php|\.htaccess)$">
+    Require all denied
+</FilesMatch>
+
+# Block listing of any directory.
+Options -Indexes
+
+# Hostinger's default Apache + PHP-FPM serves PHP automatically; no extra
+# rewrite rules are needed for the JSON endpoints. The Android app calls:
+#   POST  /api/register.php
+#   POST  /api/login.php
+#   POST  /api/verify-email.php
+#   GET   /api/profile.php
+#   POST  /api/change-house-request.php
+#   GET   /api/admin/house-requests.php
+#   POST  /api/admin/approve-house-request.php
+#
+# If you ever want extension-less URLs (e.g. /api/login), enable
+# mod_rewrite and add the rules below.
+#
+# RewriteEngine On
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteRule ^api/(.+)$ api/$1.php [L,QSA]
