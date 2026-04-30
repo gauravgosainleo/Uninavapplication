@@ -1,0 +1,3 @@
+<en-US>
+New: native login and registration. Sign up with your name and email, verify your email, and log in once - the app will keep you signed in. Your house number is auto-allocated from the residents roster. If it's wrong, request a correction from the new Profile screen and an admin will approve it.
+</en-US>

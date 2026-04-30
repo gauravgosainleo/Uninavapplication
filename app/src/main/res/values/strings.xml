@@ -12,4 +12,48 @@
     <string name="no_file_picker">No app available to pick a file.</string>
     <string name="no_app_to_handle">No app installed to handle this link.</string>
     <string name="retry_upload">Permissions updated. Tap upload again.</string>
+
+    <!-- Auth + profile -->
+    <string name="login">Log in</string>
+    <string name="login_subtitle">Sign in to your society account.</string>
+    <string name="register">Create account</string>
+    <string name="register_title">Create your account</string>
+    <string name="register_subtitle">Register as a resident of Uninav Heights.</string>
+    <string name="register_prompt">New here? Create an account</string>
+    <string name="login_prompt">Already have an account? Log in</string>
+    <string name="email">Email</string>
+    <string name="verify_email">Verify email</string>
+    <string name="password">Password</string>
+    <string name="password_helper">At least 8 characters.</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="full_name">Full name</string>
+    <string name="society">Society</string>
+    <string name="society_uninav_heights">Uninav Heights</string>
+    <string name="error_invalid_email">Enter a valid email address.</string>
+    <string name="error_password_required">Password is required.</string>
+    <string name="error_password_too_short">Password must be at least 8 characters.</string>
+    <string name="error_passwords_dont_match">Passwords don\'t match.</string>
+    <string name="error_emails_dont_match">The two email addresses don\'t match.</string>
+    <string name="error_name_required">Enter your full name.</string>
+    <string name="verification_sent_title">Check your email</string>
+    <string name="verification_sent_message">We\'ve sent a verification link to your email. Open it on this device, then come back and log in.</string>
+    <string name="go_to_login">Go to log in</string>
+
+    <string name="profile">Profile</string>
+    <string name="profile_section_account">Account</string>
+    <string name="profile_section_house">House</string>
+    <string name="profile_house_number">House number</string>
+    <string name="profile_house_unassigned">Not yet assigned</string>
+    <string name="profile_house_auto_allocated">Auto-allocated from the residents roster.</string>
+    <string name="profile_pending_request">Change request pending admin approval: %1$s</string>
+    <string name="request_house_change">Request house number change</string>
+    <string name="request_house_change_pending">Request pending approval</string>
+    <string name="request_house_dialog_title">Request a different house</string>
+    <string name="request_house_dialog_message">Enter the correct house number. An admin will review and approve before it takes effect.</string>
+    <string name="request_house_dialog_hint">New house number (e.g. B-203)</string>
+    <string name="request_house_submitted">Request sent. You\'ll be notified once an admin approves.</string>
+    <string name="submit">Submit</string>
+    <string name="logout">Log out</string>
+    <string name="logout_confirm_title">Log out?</string>
+    <string name="logout_confirm_message">You\'ll need to enter your email and password again to log back in.</string>
 </resources>
