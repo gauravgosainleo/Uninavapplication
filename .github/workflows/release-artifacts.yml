@@ -1,0 +1,81 @@
+name: Release artifacts
+
+# Manually triggered (Actions tab -> Release artifacts -> Run workflow, or
+# via the API). Builds the signed release AAB + APK using the upload
+# keystore tracked in signing/, extracts a universal APK with bundletool,
+# and commits all three to out/ on the invoking branch so the raw-URL
+# download links always serve the current build.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-commit:
+    name: Build signed artifacts and commit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: "8.10.2"
+
+      - name: Generate Gradle wrapper
+        run: gradle wrapper --gradle-version 8.10.2
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          packages: "platform-tools platforms;android-35 build-tools;35.0.0"
+
+      # The keystore password is intentionally read from the tracked
+      # CREDENTIALS.txt -- this keystore is an UPLOAD key only (Play App
+      # Signing holds the real app-signing key) and is already public in
+      # this repository's history.
+      - name: Build signed release AAB + APK
+        run: |
+          KS_PASS="UniVishwas9122005bb727c6b6"
+          ./gradlew clean bundleRelease assembleRelease --stacktrace \
+            -Pandroid.injected.signing.store.file="$GITHUB_WORKSPACE/signing/upload-key.jks" \
+            -Pandroid.injected.signing.store.password="$KS_PASS" \
+            -Pandroid.injected.signing.key.alias="upload" \
+            -Pandroid.injected.signing.key.password="$KS_PASS"
+
+      - name: Extract universal APK from AAB
+        run: |
+          curl -fsSL -o /tmp/bundletool.jar \
+            https://github.com/google/bundletool/releases/download/1.17.2/bundletool-all-1.17.2.jar
+          KS_PASS="UniVishwas9122005bb727c6b6"
+          java -jar /tmp/bundletool.jar build-apks \
+            --bundle=app/build/outputs/bundle/release/app-release.aab \
+            --output=/tmp/uv.apks --mode=universal \
+            --ks=signing/upload-key.jks --ks-pass="pass:$KS_PASS" \
+            --ks-key-alias=upload --key-pass="pass:$KS_PASS"
+          unzip -p /tmp/uv.apks universal.apk > /tmp/universal.apk
+
+      - name: Commit artifacts to branch
+        run: |
+          VERSION=$(sed -n 's/.*versionName "\([^"]*\)".*/\1/p' app/build.gradle)
+          mkdir -p out mapping
+          cp app/build/outputs/bundle/release/app-release.aab out/Uni-Vishwas-release.aab
+          cp app/build/outputs/apk/release/app-release.apk out/Uni-Vishwas-release.apk
+          cp /tmp/universal.apk out/Uni-Vishwas-release-universal.apk
+          cp app/build/outputs/mapping/release/mapping.txt "mapping/v${VERSION}-mapping.txt"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f out/Uni-Vishwas-release.aab out/Uni-Vishwas-release.apk \
+                     out/Uni-Vishwas-release-universal.apk "mapping/v${VERSION}-mapping.txt"
+          git commit -m "CI: rebuild signed release artifacts (v${VERSION})" || echo "Nothing to commit."
+          git push
