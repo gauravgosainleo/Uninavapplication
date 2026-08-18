@@ -1,0 +1,53 @@
+Uni-Vishwas v1.3.1 (versionCode 8)
+===================================
+
+Release date: 18 August 2026
+Package:      com.univishwas.app
+Track:        Internal testing -> Production
+Targets:      Android 15 (API 35), minimum Android 5.0 (API 21)
+
+
+What's new (Play Console "Release notes" field, <=500 chars)
+------------------------------------------------------------
+<en-US>
+Big portal update! Log in simply with your house number and password. New in this release: society attendance tracking, parking and vehicle management with camera-based scanning, and AOA change records. Plus all the essentials - image uploads, poll PDF downloads, pull-to-refresh, dark mode and offline retry - working smoothly in one app.
+</en-US>
+
+
+Highlights
+----------
+- House number + password login: no OTP wait, sign in with the
+  credentials issued for your flat (see Settings > Password
+  Management on the portal).
+- Attendance module: mark and review society attendance, with
+  reports.
+- Parking & vehicles: register vehicles to your flat, and scan
+  vehicles in and out with the camera from inside the app.
+- AOA changes: browse Articles of Association change records.
+- Family members: manage family member accounts linked to your house.
+- Existing features carried forward: notices, complaints with photo
+  attachments, polls with PDF result downloads, classified ads,
+  vendors, SPOCs, calendar, finance, profile with photo upload.
+
+App-side conveniences (unchanged)
+---------------------------------
+- Stay signed in between sessions.
+- Upload photos from gallery or camera.
+- Poll PDFs download through Android's native download manager.
+- Pull-to-refresh, hardware Back navigation, dark mode, offline
+  retry screen.
+
+Fixed
+-----
+- Resolved the "Version code 7 has already been used" Play Console
+  upload error (versionCode bumped to 8). No functional changes
+  compared to the v1.3.0 build.
+
+For the reviewer
+----------------
+- The app is a WebView client for the society portal at
+  learninganddevelopment.net/Uninav/Application.
+- Test credentials: house number + password shared out-of-band via
+  the App access declaration.
+- Camera permission is used only for photo uploads and the vehicle
+  scanning feature, both user-initiated.

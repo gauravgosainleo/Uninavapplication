@@ -1,3 +1,3 @@
 <en-US>
-Updated for the latest Uninav Heights portal: house number + password login, attendance tracking, parking and vehicle management with in-app scanning, and AOA change records. Camera-based scanning, image uploads, poll PDF downloads, pull-to-refresh and dark mode all work seamlessly inside the app.
+Big portal update! Log in simply with your house number and password. New in this release: society attendance tracking, parking and vehicle management with camera-based scanning, and AOA change records. Plus all the essentials - image uploads, poll PDF downloads, pull-to-refresh, dark mode and offline retry - working smoothly in one app.
 </en-US>
