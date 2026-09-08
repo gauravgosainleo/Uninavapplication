@@ -1,0 +1,3 @@
+<en-US>
+Streamlined photo uploads: picking images now uses your phone's built-in photo picker, so the app no longer needs any photo or media permission. Camera capture for uploads and vehicle scanning still works. All portal features unchanged: house number + password login, attendance, parking, AOA records, polls and complaints.
+</en-US>
