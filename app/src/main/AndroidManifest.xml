@@ -6,16 +6,12 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-    <!-- For file uploads: Android 12 and below -->
-    <uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32" />
+    <!-- Legacy: lets DownloadManager save poll PDFs to public Downloads on
+         Android 9 and below. Gallery uploads use the system picker, which
+         needs no storage or media permission on any Android version. -->
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
-
-    <!-- For file uploads: Android 13+ (granular media permissions) -->
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
     <uses-feature
         android:name="android.hardware.camera"

@@ -172,7 +172,11 @@ public class MainActivity extends AppCompatActivity {
                 }
                 filePathCallback = callback;
 
-                if (!hasUploadPermissions()) {
+                // Ask for CAMERA once so the chooser can offer "take photo".
+                // If the user declines, uploads still work via the system
+                // picker, which needs no permission at all.
+                if (!hasUploadPermissions() && !cameraPermissionAsked) {
+                    cameraPermissionAsked = true;
                     requestUploadPermissions();
                     filePathCallback.onReceiveValue(null);
                     filePathCallback = null;
@@ -223,11 +227,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private boolean cameraPermissionAsked = false;
+
     private Intent buildFileChooserIntent(WebChromeClient.FileChooserParams params) {
         Intent contentIntent = params.createIntent();
 
-        // Add a camera intent so the picker offers "Take photo" alongside Files/Gallery.
-        Intent cameraIntent = createCameraIntent();
+        // Offer "Take photo" alongside Files/Gallery only when CAMERA is granted.
+        Intent cameraIntent = hasUploadPermissions() ? createCameraIntent() : null;
         Intent chooser = new Intent(Intent.ACTION_CHOOSER);
         chooser.putExtra(Intent.EXTRA_INTENT, contentIntent);
         chooser.putExtra(Intent.EXTRA_TITLE, getString(R.string.choose_file));
@@ -283,28 +289,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // Gallery picking goes through the system picker (createIntent /
+    // ACTION_GET_CONTENT), which needs no storage or media permission on any
+    // Android version -- per Google Play's photo and video permissions
+    // policy. Only CAMERA is ever requested, and only so the chooser can
+    // offer a "take photo" option.
     private boolean hasUploadPermissions() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            return ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                    == PackageManager.PERMISSION_GRANTED;
-        }
-        boolean read = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-        boolean cam = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
-        return read && cam;
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_GRANTED;
     }
 
     private void requestUploadPermissions() {
-        String[] perms;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            perms = new String[]{Manifest.permission.CAMERA,
-                    Manifest.permission.READ_MEDIA_IMAGES};
-        } else {
-            perms = new String[]{Manifest.permission.CAMERA,
-                    Manifest.permission.READ_EXTERNAL_STORAGE};
-        }
-        ActivityCompat.requestPermissions(this, perms, PERMISSION_REQUEST_CODE);
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.CAMERA}, PERMISSION_REQUEST_CODE);
     }
 
     private boolean isOnline() {
