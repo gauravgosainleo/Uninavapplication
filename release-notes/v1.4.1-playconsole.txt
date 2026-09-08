@@ -1,0 +1,3 @@
+<en-US>
+Now targeting Android 16 to meet the latest Google Play requirements. Everything you rely on is unchanged: house number + password login, attendance, parking and vehicle scanning, AOA records, image uploads, poll PDF downloads, pull-to-refresh, dark mode and offline retry.
+</en-US>
