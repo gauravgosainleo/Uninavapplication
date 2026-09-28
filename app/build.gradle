@@ -10,8 +10,8 @@ android {
         applicationId "com.univishwas.app"
         minSdk 21
         targetSdk 36
-        versionCode 12
-        versionName "1.4.3"
+        versionCode 13
+        versionName "1.5.0"
     }
 
     buildTypes {
@@ -58,4 +58,6 @@ dependencies {
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation 'androidx.activity:activity:1.8.2'
     implementation 'androidx.webkit:webkit:1.10.0'
+    // Background "what's new" check that posts notifications.
+    implementation 'androidx.work:work-runtime:2.9.1'
 }

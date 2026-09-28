@@ -13,6 +13,10 @@
     <string name="no_app_to_handle">No app installed to handle this link.</string>
     <string name="retry_upload">Permissions updated. Tap upload again.</string>
 
+    <!-- Notifications -->
+    <string name="channel_updates_name">Society updates</string>
+    <string name="channel_updates_desc">New notices, events, photos, polls, ads and society works.</string>
+
     <!-- Auth + profile -->
     <string name="login">Log in</string>
     <string name="login_subtitle">Sign in to your society account.</string>

@@ -48,10 +48,11 @@ public class MainActivity extends AppCompatActivity {
      * Site this WebView wraps.
      * Change this constant if you ever migrate the PHP app to a new URL.
      */
-    private static final String START_URL =
+    static final String START_URL =
             "http://learninganddevelopment.net/Uninav/Application/";
 
     private static final int PERMISSION_REQUEST_CODE = 4242;
+    private static final int NOTIFICATION_PERMISSION_REQUEST_CODE = 4243;
 
     private WebView webView;
     private SwipeRefreshLayout swipeRefresh;
@@ -112,10 +113,48 @@ public class MainActivity extends AppCompatActivity {
         configureWebView();
 
         if (isOnline()) {
-            webView.loadUrl(START_URL);
+            webView.loadUrl(urlToOpen(getIntent()));
         } else {
             showOffline();
         }
+
+        // Android 13+ needs a runtime opt-in before any notification can show.
+        requestNotificationPermissionIfNeeded();
+        // Check for new society content on every open (also seeds the
+        // background check on first launch).
+        UpdatesWorker.checkNow(this);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        // Notification tapped while the app was already running: go to that page.
+        String url = intent != null ? intent.getStringExtra(UpdatesWorker.EXTRA_OPEN_URL) : null;
+        if (url != null && webView != null && isSiteUrl(url)) {
+            showOnline();
+            webView.loadUrl(url);
+        }
+    }
+
+    /** START_URL, or the page a tapped notification asked for. */
+    private String urlToOpen(Intent intent) {
+        String url = intent != null ? intent.getStringExtra(UpdatesWorker.EXTRA_OPEN_URL) : null;
+        return (url != null && isSiteUrl(url)) ? url : START_URL;
+    }
+
+    /** Only ever navigate to pages of the portal itself. */
+    private static boolean isSiteUrl(String url) {
+        return url.startsWith(START_URL);
+    }
+
+    private void requestNotificationPermissionIfNeeded() {
+        if (Build.VERSION.SDK_INT < 33) return;
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                == PackageManager.PERMISSION_GRANTED) return;
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.POST_NOTIFICATIONS},
+                NOTIFICATION_PERMISSION_REQUEST_CODE);
     }
 
     @SuppressWarnings("SetJavaScriptEnabled")
@@ -340,6 +379,12 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == PERMISSION_REQUEST_CODE) {
             // Tell the user to retry the upload now that perms (may) have been granted.
             Toast.makeText(this, R.string.retry_upload, Toast.LENGTH_SHORT).show();
+        } else if (requestCode == NOTIFICATION_PERMISSION_REQUEST_CODE
+                && grantResults.length > 0
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            // Permission just granted: run a check so the first notification
+            // is not a quarter of an hour away.
+            UpdatesWorker.checkNow(this);
         }
     }
 

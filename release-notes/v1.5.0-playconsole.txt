@@ -1,0 +1,3 @@
+<en-US>
+New: notifications. The app now tells you when something new is posted for the society — a notice, an event, photos in the gallery, a poll, a society ad, an AOA update or a new vendor. Tap the notification to open that page. Allow notifications when asked on first launch (Android 13 and above). Everything else unchanged: house number + password login, complaints, gym pass, attendance, parking and polls.
+</en-US>
